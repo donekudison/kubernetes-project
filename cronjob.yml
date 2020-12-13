@@ -1,0 +1,22 @@
+# Cron job to run evry minutes
+#
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: date-time-cronjob
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: date-time
+            image: busybox
+            imagePullPolicy: IfNotPresent
+            args:
+            - /bin/sh
+            - -c
+            - date; echo datetime
+          restartPolicy: OnFailure
+
